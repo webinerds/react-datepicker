@@ -31,7 +31,8 @@ import {
   getEffectiveMaxDate,
   parseDate,
   safeDateFormat,
-  getHightLightDaysMap
+  getHightLightDaysMap,
+  calendars
 } from "./date_utils";
 import onClickOutside from "react-onclickoutside";
 
@@ -128,7 +129,8 @@ export default class DatePicker extends React.Component {
     minTime: PropTypes.object,
     maxTime: PropTypes.object,
     excludeTimes: PropTypes.array,
-    useShortMonthInDropdown: PropTypes.bool
+    useShortMonthInDropdown: PropTypes.bool,
+    calendar: PropTypes.oneOf(Object.values(calendars))
   };
 
   static get defaultProps() {
@@ -153,7 +155,8 @@ export default class DatePicker extends React.Component {
       shouldCloseOnSelect: true,
       showTimeSelect: false,
       timeIntervals: 30,
-      timeCaption: "Time"
+      timeCaption: "Time",
+      calendar: calendars.gregorian
     };
   }
 
@@ -541,6 +544,7 @@ export default class DatePicker extends React.Component {
         timeCaption={this.props.timeCaption}
         className={this.props.calendarClassName}
         yearDropdownItemNumber={this.props.yearDropdownItemNumber}
+        calendar={this.props.calendar}
       >
         {this.props.children}
       </WrappedCalendar>
@@ -559,7 +563,11 @@ export default class DatePicker extends React.Component {
         ? this.props.value
         : typeof this.state.inputValue === "string"
           ? this.state.inputValue
-          : safeDateFormat(this.props.selected, this.props);
+          : safeDateFormat(
+              this.props.selected,
+              this.props,
+              this.props.calendar
+            );
 
     return React.cloneElement(customInput, {
       [customInputRef]: input => {

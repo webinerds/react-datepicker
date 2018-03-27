@@ -105,7 +105,8 @@ export default class Calendar extends React.Component {
     yearDropdownItemNumber: PropTypes.number,
     setOpen: PropTypes.func,
     useShortMonthInDropdown: PropTypes.bool,
-    showDisabledMonthNavigation: PropTypes.bool
+    showDisabledMonthNavigation: PropTypes.bool,
+    calendar: PropTypes.string
   };
 
   static get defaultProps() {
@@ -238,7 +239,7 @@ export default class Calendar extends React.Component {
   changeYear = year => {
     this.setState(
       {
-        date: setYear(cloneDate(this.state.date), year)
+        date: setYear(cloneDate(this.state.date), year, this.props.calendar)
       },
       () => this.handleYearChange(this.state.date)
     );
@@ -277,7 +278,11 @@ export default class Calendar extends React.Component {
     }
     return dayNames.concat(
       [0, 1, 2, 3, 4, 5, 6].map(offset => {
-        const day = addDays(cloneDate(startOfWeek), offset);
+        const day = addDays(
+          cloneDate(startOfWeek),
+          offset,
+          this.props.calendar
+        );
         const localeData = getLocaleData(day);
         const weekDayName = this.props.useWeekdaysShort
           ? getWeekdayShortInLocale(localeData, day)
@@ -404,9 +409,10 @@ export default class Calendar extends React.Component {
         onChange={this.changeYear}
         minDate={this.props.minDate}
         maxDate={this.props.maxDate}
-        year={getYear(this.state.date)}
+        year={getYear(this.state.date, this.props.calendar)}
         scrollableYearDropdown={this.props.scrollableYearDropdown}
         yearDropdownItemNumber={this.props.yearDropdownItemNumber}
+        calendar={this.props.calendar}
       />
     );
   };
@@ -520,6 +526,7 @@ export default class Calendar extends React.Component {
             endDate={this.props.endDate}
             peekNextMonth={this.props.peekNextMonth}
             utcOffset={this.props.utcOffset}
+            calendar={this.props.calendar}
           />
         </div>
       );

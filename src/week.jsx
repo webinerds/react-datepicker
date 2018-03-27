@@ -28,7 +28,8 @@ export default class Week extends React.Component {
     selectsStart: PropTypes.bool,
     showWeekNumber: PropTypes.bool,
     startDate: PropTypes.object,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    calendar: PropTypes.string
   };
 
   handleDayClick = (day, event) => {
@@ -57,7 +58,10 @@ export default class Week extends React.Component {
   };
 
   renderDays = () => {
-    const startOfWeek = utils.getStartOfWeek(utils.cloneDate(this.props.day));
+    const startOfWeek = utils.getStartOfWeek(
+      utils.cloneDate(this.props.day),
+      this.props.calendar
+    );
     const days = [];
     const weekNumber = this.formatWeekNumber(startOfWeek);
     if (this.props.showWeekNumber) {
@@ -70,7 +74,11 @@ export default class Week extends React.Component {
     }
     return days.concat(
       [0, 1, 2, 3, 4, 5, 6].map(offset => {
-        const day = utils.addDays(utils.cloneDate(startOfWeek), offset);
+        const day = utils.addDays(
+          utils.cloneDate(startOfWeek),
+          offset,
+          this.props.calendar
+        );
         return (
           <Day
             key={offset}
@@ -94,6 +102,7 @@ export default class Week extends React.Component {
             endDate={this.props.endDate}
             dayClassName={this.props.dayClassName}
             utcOffset={this.props.utcOffset}
+            calendar={this.props.calendar}
           />
         );
       })
