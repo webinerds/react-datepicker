@@ -49,6 +49,7 @@ import IncludeTimes from "./examples/include_times";
 import InjectTimes from "./examples/inject_times";
 import DontCloseOnSelect from "./examples/dont_close_onSelect";
 import OpenByDefault from "./examples/open_by_default";
+import Hijri from "./examples/hijri";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.scss";
@@ -246,6 +247,10 @@ export default class exampleComponents extends React.Component {
     {
       title: "Open calendar by default",
       component: <OpenByDefault />
+    },
+    {
+      title: "Hijri",
+      component: <Hijri />
     }
   ];
 
