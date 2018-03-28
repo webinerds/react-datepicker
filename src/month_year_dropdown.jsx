@@ -24,7 +24,8 @@ export default class MonthYearDropdown extends React.Component {
     minDate: PropTypes.object.isRequired,
     date: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    scrollableMonthYearDropdown: PropTypes.bool
+    scrollableMonthYearDropdown: PropTypes.bool,
+    calendar: PropTypes.string
   };
 
   state = {
@@ -45,7 +46,7 @@ export default class MonthYearDropdown extends React.Component {
       const timepoint = currDate.valueOf();
       options.push(
         <option key={timepoint} value={timepoint}>
-          {formatDate(currDate, this.props.dateFormat)}
+          {formatDate(currDate, this.props.dateFormat, this.props.calendar)}
         </option>
       );
 
