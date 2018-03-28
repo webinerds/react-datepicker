@@ -1,7 +1,8 @@
 {
   "author": "Maksym Klishevych",
-  "name": "react-datepicker-hijri",
-  "description": "A simple and reusable datepicker component for React",
+  "name": "react-datepicker-moment-hijri",
+  "description":
+    "A simple and reusable datepicker component for React with hijra support",
   "version": "1.3.0",
   "license": "MIT",
   "homepage": "https://github.com/webinerds/react-datepicker",
@@ -110,7 +111,7 @@
     "lint": "run-p eslint sass-lint",
     "start": "cross-env MODULES=false node server.js",
     "test": "cross-env NODE_ENV=test karma start karma.conf.js --single-run",
-    "prepublish": "test $(npm -v | tr . '\\n' | head -n 1) -ge '4' || exit 1",
+    "prepublish": "",
     "prepare": "npm run build",
     "codecov":
       "cat coverage/*/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js",
