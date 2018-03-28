@@ -22,8 +22,8 @@ You’ll need to install React, PropTypes, and Moment.js separately since those 
 
 ```js
 import React from "react";
-import DatePicker from "react-datepicker";
-import moment from "moment";
+import DatePicker from "react-datepicker-hijri";
+import moment from "moment-hijri";
 
 import "react-datepicker/dist/react-datepicker.css";
 
