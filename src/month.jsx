@@ -32,7 +32,8 @@ export default class Month extends React.Component {
     selectsStart: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     startDate: PropTypes.object,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    calendar: PropTypes.string
   };
 
   handleDayClick = (day, event) => {
@@ -55,9 +56,14 @@ export default class Month extends React.Component {
 
   isWeekInMonth = startOfWeek => {
     const day = this.props.day;
-    const endOfWeek = utils.addDays(utils.cloneDate(startOfWeek), 6);
+    const endOfWeek = utils.addDays(
+      utils.cloneDate(startOfWeek),
+      6,
+      this.props.calendar
+    );
     return (
-      utils.isSameMonth(startOfWeek, day) || utils.isSameMonth(endOfWeek, day)
+      utils.isSameMonth(startOfWeek, day, this.props.calendar) ||
+      utils.isSameMonth(endOfWeek, day, this.props.calendar)
     );
   };
 
@@ -65,7 +71,11 @@ export default class Month extends React.Component {
     const weeks = [];
     var isFixedHeight = this.props.fixedHeight;
     let currentWeekStart = utils.getStartOfWeek(
-      utils.getStartOfMonth(utils.cloneDate(this.props.day))
+      utils.getStartOfMonth(
+        utils.cloneDate(this.props.day),
+        this.props.calendar
+      ),
+      this.props.calendar
     );
     let i = 0;
     let breakAfterNextPush = false;
@@ -97,13 +107,18 @@ export default class Month extends React.Component {
           endDate={this.props.endDate}
           dayClassName={this.props.dayClassName}
           utcOffset={this.props.utcOffset}
+          calendar={this.props.calendar}
         />
       );
 
       if (breakAfterNextPush) break;
 
       i++;
-      currentWeekStart = utils.addWeeks(utils.cloneDate(currentWeekStart), 1);
+      currentWeekStart = utils.addWeeks(
+        utils.cloneDate(currentWeekStart),
+        1,
+        this.props.calendar
+      );
 
       // If one of these conditions is true, we will either break on this week
       // or break on the next week

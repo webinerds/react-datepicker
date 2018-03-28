@@ -565,3 +565,22 @@
     }
   }
 }
+
+.react-datepicker-rtl,
+html[dir="rtl"] {
+  direction: rtl;
+
+  .react-datepicker__navigation--previous {
+    left: auto;
+    right: 10px;
+    border-left-color: $datepicker__muted-color;
+    border-right-color: transparent;
+  }
+
+  .react-datepicker__navigation--next {
+    left: 10px;
+    right: auto;
+    border-left-color: transparent;
+    border-right-color: $datepicker__muted-color;
+  }
+}

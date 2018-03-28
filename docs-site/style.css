@@ -642,6 +642,30 @@
   border-left-color: #e6e6e6;
   cursor: default;
 }
+.react-datepicker__portal .react-datepicker__navigation--next--disabled,
+.react-datepicker__portal .react-datepicker__navigation--next--disabled:hover {
+  border-left-color: #e6e6e6;
+  cursor: default;
+}
+
+.react-datepicker-rtl,
+html[dir="rtl"] {
+  direction: rtl;
+}
+.react-datepicker-rtl .react-datepicker__navigation--previous,
+html[dir="rtl"] .react-datepicker__navigation--previous {
+  left: auto;
+  right: 10px;
+  border-left-color: #ccc;
+  border-right-color: transparent;
+}
+.react-datepicker-rtl .react-datepicker__navigation--next,
+html[dir="rtl"] .react-datepicker__navigation--next {
+  left: 10px;
+  right: auto;
+  border-left-color: transparent;
+  border-right-color: #ccc;
+}
 html,
 body,
 div,

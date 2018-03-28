@@ -9,7 +9,8 @@ import {
   isSameDay,
   isDayDisabled,
   isDayInRange,
-  getDayOfWeekCode
+  getDayOfWeekCode,
+  formatDay
 } from "./date_utils";
 
 export default class Day extends React.Component {
@@ -28,7 +29,8 @@ export default class Day extends React.Component {
     selectsEnd: PropTypes.bool,
     selectsStart: PropTypes.bool,
     startDate: PropTypes.object,
-    utcOffset: PropTypes.number
+    utcOffset: PropTypes.number,
+    calendar: PropTypes.string
   };
 
   handleClick = event => {
@@ -190,7 +192,10 @@ export default class Day extends React.Component {
         aria-label={`day-${getDate(this.props.day)}`}
         role="option"
       >
-        {getDate(this.props.day)}
+        {formatDay(
+          getDate(this.props.day, this.props.calendar),
+          this.props.calendar
+        )}
       </div>
     );
   }

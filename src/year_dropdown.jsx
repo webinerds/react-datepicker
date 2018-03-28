@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import YearDropdownOptions from "./year_dropdown_options";
 import onClickOutside from "react-onclickoutside";
-import { getYear } from "./date_utils";
+import { getYear, formatYear } from "./date_utils";
 
 var WrappedYearDropdownOptions = onClickOutside(YearDropdownOptions);
 
@@ -18,7 +18,8 @@ export default class YearDropdown extends React.Component {
     yearDropdownItemNumber: PropTypes.number,
     date: PropTypes.object,
     onSelect: PropTypes.func,
-    setOpen: PropTypes.func
+    setOpen: PropTypes.func,
+    calendar: PropTypes.string
   };
 
   state = {
@@ -63,7 +64,7 @@ export default class YearDropdown extends React.Component {
     >
       <span className="react-datepicker__year-read-view--down-arrow" />
       <span className="react-datepicker__year-read-view--selected-year">
-        {this.props.year}
+        {formatYear(this.props.year, this.props.calendar)}
       </span>
     </div>
   );
@@ -79,6 +80,7 @@ export default class YearDropdown extends React.Component {
       maxDate={this.props.maxDate}
       scrollableYearDropdown={this.props.scrollableYearDropdown}
       yearDropdownItemNumber={this.props.yearDropdownItemNumber}
+      calendar={this.props.calendar}
     />
   );
 
