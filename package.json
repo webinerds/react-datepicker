@@ -1,22 +1,29 @@
 {
-  "author": "HackerOne",
-  "name": "react-datepicker",
+  "author": "Maksym Klishevych",
+  "name": "react-datepicker-hijri",
   "description": "A simple and reusable datepicker component for React",
   "version": "1.3.0",
   "license": "MIT",
-  "homepage": "https://github.com/Hacker0x01/react-datepicker",
+  "homepage": "https://github.com/webinerds/react-datepicker",
   "main": "lib",
   "module": "es",
   "unpkg": "dist/react-datepicker.min.js",
   "style": "dist/react-datepicker.min.css",
   "files": ["*.md", "dist", "lib", "es", "src/stylesheets"],
-  "keywords": ["react", "datepicker", "calendar", "date", "react-component"],
+  "keywords": [
+    "react",
+    "datepicker",
+    "calendar",
+    "date",
+    "react-component",
+    "hijri"
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/Hacker0x01/react-datepicker.git"
+    "url": "github.com:webinerds/react-datepicker.git"
   },
   "bugs": {
-    "url": "https://github.com/Hacker0x01/react-datepicker/issues"
+    "url": "https://github.com/webinerds/react-datepicker"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
