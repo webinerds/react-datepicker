@@ -580,7 +580,18 @@ export function getWeekdayShortInLocale(locale, date) {
 }
 
 // TODO what is this format exactly?
-export function getMonthInLocale(locale, date, format) {
+export function getMonthInLocale(
+  locale,
+  date,
+  format,
+  calendar = calendars.gregorian
+) {
+  switch (calendar) {
+    case calendars.hijri:
+      format = convertFormatHijri(format);
+      break;
+  }
+
   return locale.months(date, format);
 }
 

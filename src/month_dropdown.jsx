@@ -13,7 +13,8 @@ export default class MonthDropdown extends React.Component {
     dateFormat: PropTypes.string.isRequired,
     month: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
-    useShortMonthInDropdown: PropTypes.bool
+    useShortMonthInDropdown: PropTypes.bool,
+    calendar: PropTypes.string
   };
 
   state = {
@@ -92,7 +93,8 @@ export default class MonthDropdown extends React.Component {
             utils.getMonthInLocale(
               localeData,
               utils.newDate({ M }),
-              this.props.dateFormat
+              this.props.dateFormat,
+              this.props.calendar
             )
     );
 

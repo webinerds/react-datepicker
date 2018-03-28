@@ -390,7 +390,7 @@ export default class Calendar extends React.Component {
     }
     return (
       <div className={classes.join(" ")}>
-        {formatDate(date, this.props.dateFormat)}
+        {formatDate(date, this.props.dateFormat, this.props.calendar)}
       </div>
     );
   };
@@ -429,6 +429,7 @@ export default class Calendar extends React.Component {
         onChange={this.changeMonth}
         month={getMonth(this.state.date)}
         useShortMonthInDropdown={this.props.useShortMonthInDropdown}
+        calendar={this.props.calendar}
       />
     );
   };
@@ -447,6 +448,7 @@ export default class Calendar extends React.Component {
         maxDate={this.props.maxDate}
         date={this.state.date}
         scrollableMonthYearDropdown={this.props.scrollableMonthYearDropdown}
+        calendar={this.props.calendar}
       />
     );
   };

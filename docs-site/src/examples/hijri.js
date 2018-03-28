@@ -27,7 +27,7 @@ export default class Hijri extends React.Component {
     onChange={this.handleChange}
     calendar="hijri"
     locale="ar-sa"
-    dateFormatCalendar="iMMMM"
+    dateFormatCalendar="MMMM"
     minDate={moment().iYear(1356)}
     maxDate={moment().iYear(1500)}
 />
@@ -42,7 +42,7 @@ export default class Hijri extends React.Component {
             locale="ar-sa"
             useWeekdaysShort
             showYearDropdown
-            dateFormatCalendar="iMMMM"
+            dateFormatCalendar="MMMM"
             scrollableYearDropdown
             minDate={moment().iYear(1356)}
             maxDate={moment().iYear(1500)}
