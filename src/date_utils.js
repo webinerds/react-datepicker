@@ -162,13 +162,33 @@ function isSameByCalendar(date1, date2, unit, calendar) {
   }
 }
 
+function isBeforeByCalendar(date1, date2, unit, calendar) {
+  switch (calendar) {
+    case calendars.hijri:
+      return isBeforeHijri(date1, date2, unit);
+    default:
+      return isBefore(date1, date2, unit);
+  }
+}
+
+function isAfterByCalendar(date1, date2, unit, calendar) {
+  switch (calendar) {
+    case calendars.hijri:
+      return isAfterHijri(date1, date2, unit);
+    default:
+      return isAfter(date1, date2, unit);
+  }
+}
+
 // ** Hijri **
 
 function setHijri(date, unit, to) {
   switch (unit) {
     case "year":
+    case "years":
       return date.iYear(to);
     case "month":
+    case "months":
       return date.iMonth(to);
     default:
       return set(date, unit, to);
@@ -178,7 +198,9 @@ function setHijri(date, unit, to) {
 function addHijri(date, amount, unit) {
   switch (unit) {
     case "year":
+    case "years":
     case "month":
+    case "months":
       unit = `i${unit}`;
     // fall-through
     default:
@@ -189,7 +211,9 @@ function addHijri(date, amount, unit) {
 function subtractHijri(date, amount, unit) {
   switch (unit) {
     case "year":
+    case "years":
     case "month":
+    case "months":
       unit = `i${unit}`;
     // fall-through
     default:
@@ -200,7 +224,9 @@ function subtractHijri(date, amount, unit) {
 function isSameHijri(date1, date2, unit) {
   switch (unit) {
     case "year":
+    case "years":
     case "month":
+    case "months":
       unit = `i${unit}`;
 
       if (date1 && date2) {
@@ -224,15 +250,66 @@ function isSameHijri(date1, date2, unit) {
   }
 }
 
+function isBeforeHijri(date1, date2, unit) {
+  switch (unit) {
+    case "year":
+    case "years":
+    case "month":
+    case "months":
+      unit = `i${unit}`;
+
+      if (date1 && date2) {
+        return (
+          date1
+            .clone()
+            .endOf(unit)
+            .valueOf() < date2.valueOf()
+        );
+      } else {
+        return false;
+      }
+    default:
+      return isBefore(date1, date2);
+  }
+}
+
+function isAfterHijri(date1, date2, unit) {
+  switch (unit) {
+    case "year":
+    case "years":
+    case "month":
+    case "months":
+      unit = `i${unit}`;
+
+      if (date1 && date2) {
+        return (
+          date2.valueOf() <
+          date1
+            .clone()
+            .endOf(unit)
+            .valueOf()
+        );
+      } else {
+        return false;
+      }
+    default:
+      return isBefore(date1, date2);
+  }
+}
+
 function getHijri(date, unit) {
   switch (unit) {
     case "date":
+    case "dates":
       return date.iDate();
     case "week":
+    case "weeks":
       return date.iWeek();
     case "month":
+    case "months":
       return date.iMonth();
     case "year":
+    case "years":
       return date.iYear();
     default:
       return get(date, unit);
@@ -242,7 +319,9 @@ function getHijri(date, unit) {
 function getStartOfHijri(date, unit) {
   switch (unit) {
     case "year":
+    case "years":
     case "month":
+    case "months":
       unit = `i${unit}`;
     // fall-through
     default:
@@ -253,7 +332,9 @@ function getStartOfHijri(date, unit) {
 function getEndOfHijri(date, unit) {
   switch (unit) {
     case "year":
+    case "years":
     case "month":
+    case "months":
       unit = `i${unit}`;
     // fall-through
     default:
@@ -480,12 +561,12 @@ export function subtractYears(date, amount, calendar = calendars.gregorian) {
 
 // ** Date Comparison **
 
-export function isBefore(date1, date2) {
-  return date1.isBefore(date2);
+export function isBefore(date1, date2, unit) {
+  return date1.isBefore(date2, unit);
 }
 
-export function isAfter(date1, date2) {
-  return date1.isAfter(date2);
+export function isAfter(date1, date2, unit) {
+  return date1.isAfter(date2, unit);
 }
 
 export function equals(date1, date2) {
@@ -659,14 +740,14 @@ export function isTimeInDisabledRange(time, { minTime, maxTime }) {
 export function allDaysDisabledBefore(
   day,
   unit,
-  { minDate, includeDates } = {}
+  { minDate, includeDates, calendar } = {}
 ) {
-  const dateBefore = day.clone().subtract(1, unit);
+  const dateBefore = subtractByCalendar(day.clone(), 1, unit, calendar);
   return (
-    (minDate && dateBefore.isBefore(minDate, unit)) ||
+    (minDate && isBeforeByCalendar(dateBefore, minDate, unit, calendar)) ||
     (includeDates &&
       includeDates.every(includeDate =>
-        dateBefore.isBefore(includeDate, unit)
+        isBeforeByCalendar(dateBefore, includeDate, unit, calendar)
       )) ||
     false
   );
@@ -675,14 +756,14 @@ export function allDaysDisabledBefore(
 export function allDaysDisabledAfter(
   day,
   unit,
-  { maxDate, includeDates } = {}
+  { maxDate, includeDates, calendar } = {}
 ) {
-  const dateAfter = day.clone().add(1, unit);
+  const dateAfter = addByCalendar(day.clone(), 1, unit, calendar);
   return (
-    (maxDate && dateAfter.isAfter(maxDate, unit)) ||
+    (maxDate && isAfterByCalendar(dateAfter, maxDate, unit, calendar)) ||
     (includeDates &&
       includeDates.every(includeDate =>
-        dateAfter.isAfter(includeDate, unit)
+        isAfterByCalendar(dateAfter, includeDate, unit, calendar)
       )) ||
     false
   );

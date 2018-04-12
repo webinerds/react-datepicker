@@ -85,7 +85,7 @@ export default class Month extends React.Component {
         <Week
           key={i}
           day={currentWeekStart}
-          month={utils.getMonth(this.props.day)}
+          month={utils.getMonth(this.props.day, this.props.calendar)}
           onDayClick={this.handleDayClick}
           onDayMouseEnter={this.handleDayMouseEnter}
           onWeekSelect={this.props.onWeekSelect}

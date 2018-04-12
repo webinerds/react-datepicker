@@ -17,6 +17,18 @@ export default class Hijri extends React.Component {
   };
 
   render() {
+    const minDate = moment()
+      .iYear(1356)
+      .iMonth(0)
+      .iDate(1)
+      .hour(0)
+      .minute(0)
+      .second(0);
+    const maxDate = moment()
+      .iYear(1499)
+      .iMonth(11)
+      .iDate(29);
+
     return (
       <div className="row">
         <pre className="column example__code">
@@ -28,8 +40,8 @@ export default class Hijri extends React.Component {
     calendar="hijri"
     locale="ar-sa"
     dateFormatCalendar="MMMM"
-    minDate={moment().iYear(1356)}
-    maxDate={moment().iYear(1500)}
+    minDate={moment().iYear(1356).iMonth(0).iDate(1)}
+    maxDate={moment().iYear(1499).iMonth(11).iDate(29)}
 />
 `}
           </code>
@@ -42,10 +54,11 @@ export default class Hijri extends React.Component {
             locale="ar-sa"
             useWeekdaysShort
             showYearDropdown
+            yearDropdownItemNumber={maxDate.iYear() - minDate.iYear()}
             dateFormatCalendar="MMMM"
             scrollableYearDropdown
-            minDate={moment().iYear(1356)}
-            maxDate={moment().iYear(1500)}
+            minDate={minDate}
+            maxDate={maxDate}
           />
         </div>
       </div>

@@ -190,7 +190,7 @@ export default class Calendar extends React.Component {
   increaseMonth = () => {
     this.setState(
       {
-        date: addMonths(cloneDate(this.state.date), 1)
+        date: addMonths(cloneDate(this.state.date), 1, this.props.calendar)
       },
       () => this.handleMonthChange(this.state.date)
     );
@@ -199,7 +199,7 @@ export default class Calendar extends React.Component {
   decreaseMonth = () => {
     this.setState(
       {
-        date: subtractMonths(cloneDate(this.state.date), 1)
+        date: subtractMonths(cloneDate(this.state.date), 1, this.props.calendar)
       },
       () => this.handleMonthChange(this.state.date)
     );
@@ -248,7 +248,7 @@ export default class Calendar extends React.Component {
   changeMonth = month => {
     this.setState(
       {
-        date: setMonth(cloneDate(this.state.date), month)
+        date: setMonth(cloneDate(this.state.date), month, this.props.calendar)
       },
       () => this.handleMonthChange(this.state.date)
     );
@@ -258,8 +258,13 @@ export default class Calendar extends React.Component {
     this.setState(
       {
         date: setYear(
-          setMonth(cloneDate(this.state.date), getMonth(monthYear)),
-          getYear(monthYear)
+          setMonth(
+            cloneDate(this.state.date),
+            getMonth(monthYear),
+            this.props.calendar
+          ),
+          getYear(monthYear, this.props.calendar),
+          this.props.calendar
         )
       },
       () => this.handleMonthYearChange(this.state.date)
@@ -267,7 +272,7 @@ export default class Calendar extends React.Component {
   };
 
   header = (date = this.state.date) => {
-    const startOfWeek = getStartOfWeek(cloneDate(date));
+    const startOfWeek = getStartOfWeek(cloneDate(date), this.props.calendar);
     const dayNames = [];
     if (this.props.showWeekNumbers) {
       dayNames.push(
@@ -427,7 +432,7 @@ export default class Calendar extends React.Component {
         locale={this.props.locale}
         dateFormat={this.props.dateFormat}
         onChange={this.changeMonth}
-        month={getMonth(this.state.date)}
+        month={getMonth(this.state.date, this.props.calendar)}
         useShortMonthInDropdown={this.props.useShortMonthInDropdown}
         calendar={this.props.calendar}
       />
@@ -461,7 +466,10 @@ export default class Calendar extends React.Component {
       <div
         className="react-datepicker__today-button"
         onClick={e =>
-          this.props.onSelect(getStartOfDate(now(this.props.utcOffset)), e)
+          this.props.onSelect(
+            getStartOfDate(now(this.props.utcOffset), this.props.calendar),
+            e
+          )
         }
       >
         {this.props.todayButton}
@@ -476,7 +484,11 @@ export default class Calendar extends React.Component {
 
     var monthList = [];
     for (var i = 0; i < this.props.monthsShown; ++i) {
-      var monthDate = addMonths(cloneDate(this.state.date), i);
+      var monthDate = addMonths(
+        cloneDate(this.state.date),
+        i,
+        this.props.calendar
+      );
       var monthKey = `month-${i}`;
       monthList.push(
         <div

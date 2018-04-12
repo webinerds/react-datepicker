@@ -3,7 +3,7 @@
   "name": "react-datepicker-moment-hijri",
   "description":
     "A simple and reusable datepicker component for React with hijra support",
-  "version": "1.3.0-w-2",
+  "version": "1.3.0-w-3",
   "license": "MIT",
   "homepage": "https://github.com/webinerds/react-datepicker",
   "main": "lib",
